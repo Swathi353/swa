@@ -1,0 +1,46 @@
+import java.util.*;
+
+class Job implements Comparable<Job> {
+    int jobNumber;
+    int days;
+    int fine;
+
+    public Job(int jobNumber, int days, int fine) {
+        this.jobNumber = jobNumber;
+        this.days = days;
+        this.fine = fine;
+    }
+
+    @Override
+    public int compareTo(Job other) {
+        // Compare jobs based on their penalty per day
+        return Integer.compare(this.fine * other.days, other.fine * this.days);
+    }
+}
+
+public class ShoemakerProblem {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("Enter the number of jobs: ");
+        int n = scanner.nextInt();
+
+        List<Job> jobs = new ArrayList<>();
+        for (int i = 0; i < n; i++) {
+            System.out.println("Enter the details for job " + (i + 1) + ":");
+            System.out.print("Time to complete the job: ");
+            int days = scanner.nextInt();
+            System.out.print("Fine per day if the job is not completed: ");
+            int fine = scanner.nextInt();
+            jobs.add(new Job(i + 1, days, fine));
+        }
+
+        Collections.sort(jobs);
+
+        System.out.println("\nOptimal schedule:");
+        for (Job job : jobs) {
+            System.out.println("Job " + job.jobNumber + " (Days: " + job.days + ", Fine: " + job.fine + ")");
+        }
+
+        scanner.close();
+    }
+}

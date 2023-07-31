@@ -1,0 +1,42 @@
+
+import java.util.*;
+
+public class commonpermutation {
+    public static void main(String[] args) {
+
+        Scanner sc= new Scanner(System.in);  
+        System.out.print("Enter first string: ");  
+        String str1 = sc.nextLine(); 
+        System.out.print("Enter second string: ");   
+        String str2 = sc.nextLine();   
+
+        String commonPermutation = findCommonPermutation(str1, str2);
+        System.out.println("Common Permutation: " + commonPermutation);
+    }
+
+    private static String findCommonPermutation(String str1, String str2) {
+        int[] count1 = new int[26];
+        int[] count2 = new int[26];
+
+        // Count the frequency of characters in str1
+        for (char c : str1.toCharArray()) {
+            count1[c - 'a']++;
+        }
+
+        // Count the frequency of characters in str2
+        for (char c : str2.toCharArray()) {
+            count2[c - 'a']++;
+        }
+
+        // Find the common permutation
+        StringBuilder commonPermutation = new StringBuilder();
+        for (int i = 0; i < 26; i++) {
+            int commonFreq = Math.min(count1[i], count2[i]);
+            for (int j = 0; j < commonFreq; j++) {
+                commonPermutation.append((char) (i + 'a'));
+            }
+        }
+
+        return commonPermutation.toString();
+    }
+}

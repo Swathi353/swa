@@ -1,0 +1,41 @@
+
+import java.util.*;
+
+public class vitofamily {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.print("Enter the number of family houses: ");
+        int n = scanner.nextInt();
+
+        int[] familyHouses = new int[n];
+        System.out.println("Enter the positions of family houses:");
+
+        for (int i = 0; i < n; i++) {
+            familyHouses[i] = scanner.nextInt();
+        }
+
+        int optimalLocation = findOptimalLocation(familyHouses);
+        System.out.println("The optimal location for Vito's house is at position: " + optimalLocation);
+    }
+
+    private static int findOptimalLocation(int[] familyHouses) {
+        Arrays.sort(familyHouses);
+
+        int median;
+        int n = familyHouses.length;
+
+        if (n % 2 == 0) {
+            median = (familyHouses[n / 2 - 1] + familyHouses[n / 2]) / 2;
+        } else {
+            median = familyHouses[n / 2];
+        }
+
+        int totalDistance = 0;
+        for (int house : familyHouses) {
+            totalDistance += Math.abs(house - median);
+        }
+
+        return median;
+    }
+}

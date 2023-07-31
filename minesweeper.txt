@@ -1,0 +1,110 @@
+import java.util.Scanner;
+public class Minesweeper 
+{
+    static int[][] field; 
+    static int nLines = 100;
+    static int nColumns = 100;
+
+    public static void clearField() 
+	{
+        for (int i = 0; i < nLines; i++) 
+		{
+            for (int j = 0; j < nColumns; j++) 
+			{
+                field[i][j] = 0;
+            }
+        }
+    }
+    public static void setBounds(int l, int c) 
+	{
+        nLines = l;
+        nColumns = c;
+    }
+    public static boolean isInsideBounds(int i, int j) 
+	{
+        return i >= 0 && i < nLines && j >= 0 && j < nColumns;
+    }
+    public static void increment(int i, int j) 
+	{
+        if (isInsideBounds(i, j) && field[i][j] != -1) 
+		{
+            ++field[i][j];
+        }
+    }
+    public static void setMine(int i, int j) 
+	{
+        field[i][j] = -1;
+        for (int m = -1; m <= 1; m++) 
+		{
+            for (int n = -1; n <= 1; n++)
+				{
+                increment(i + m, j + n);
+            }
+        }
+    }
+    public static void printField(int nField) 
+	{
+        System.out.println("Field #" + nField + ":");
+
+        for (int i = 0; i < nLines; i++)
+			{
+            for (int j = 0; j < nColumns; j++)
+				{
+                int x = field[i][j];
+
+                if (x == -1)
+					{ 
+                    System.out.print("*");
+                } else 
+				{
+                    System.out.print(x);
+                }
+            }
+            System.out.println();
+        }
+    }
+
+    public static void main(String[] args) 
+	{
+        Scanner scanner = new Scanner(System.in);
+        int l, c; 
+        int nField = 1;
+
+        while (scanner.hasNext()) 
+		{
+            l = scanner.nextInt();
+            c = scanner.nextInt();
+
+            if (l == 0 && c == 0) 
+			{ 
+                break;
+            }
+
+            setBounds(l, c);
+            field = new int[l][c];
+            clearField();
+
+            for (int i = 0; i < l; i++) {
+                String line = scanner.next();
+
+                for (int j = 0; j < c; j++)
+					{
+                    char currentChar = line.charAt(j);
+                    if (currentChar == '*')
+						{
+                        setMine(i, j);
+                    }
+                }
+            }
+
+            if (nField > 1) 
+			{
+                System.out.println();
+            }
+            printField(nField);
+
+            ++nField;
+        }
+        scanner.close();
+    }
+}

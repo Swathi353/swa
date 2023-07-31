@@ -1,0 +1,32 @@
+#include<stdio.h>
+void main()
+{
+	unsigned int a,b;
+	while(scanf("%u %u",&a,&b)!= EOF )
+	{
+		if(!a&&!b){
+			break;
+		}
+		int count=0,carry=0,temp;
+		while(a||b){
+			temp=(a%10)+(b%10)+carry;
+			carry=0;
+			if(temp>=10){
+				count++;
+				carry=1;
+			}
+			a /= 10;
+			b/=10;
+
+		}
+		if(count==1){
+			printf("%u carry operations",count);
+		}
+		else if(count){
+			printf("%u carry operations",count);
+		} 
+		else{
+			printf("No carry operations");
+		}
+	}
+}

@@ -1,0 +1,32 @@
+public class QwertyuKeyboardProblem {
+    public static void main(String[] args) {
+        String qwertyuLayout = "qwertyuiop[]asdfghjkl;'zxcvbnm,./";
+        String qwertyLayout = "qwertyuiopasdfghjklzxcvbnm";
+
+        String input = "eht lwe"; // Input string from the qwertyu keyboard
+        String output = convertToQwerty(input, qwertyuLayout, qwertyLayout);
+        System.out.println("Original string typed on qwerty keyboard: " + output);
+    }
+
+    public static String convertToQwerty(String input, String qwertyuLayout, String qwertyLayout) {
+        StringBuilder result = new StringBuilder();
+
+        for (char ch : input.toCharArray()) {
+            if (Character.isLetter(ch)) {
+                int index = qwertyuLayout.indexOf(ch);
+                if (index != -1) {
+                    char originalChar = qwertyLayout.charAt(index);
+                    result.append(originalChar);
+                } else {
+                    // If the character is not found in the qwertyu layout, keep it unchanged
+                    result.append(ch);
+                }
+            } else {
+                // If the character is not a letter, keep it unchanged
+                result.append(ch);
+            }
+        }
+
+        return result.toString();
+    }
+}
